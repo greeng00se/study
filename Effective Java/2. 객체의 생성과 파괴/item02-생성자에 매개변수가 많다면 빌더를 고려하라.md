@@ -1,0 +1,135 @@
+> Joshua Bloch님의 Effective Java 3/E를 읽고 정리한 글입니다.
+>
+
+## 생성자에 매개변수가 많다면 빌더를 고려하라
+
+- 정적 팩터리 메서드와 생성자는 선택적 매개변수가 많을 경우 사용하기 어려워진다.
+- 그럼 매개변수가 많은 클래스는 이러한 문제를 해결하기 위해 어떤 방법을 사용해야 할까?
+
+## 단점이 명확한 해결방법
+
+### 점층적 생성자 패턴(telescoping constructor pattern)
+
+- 점층적 생성자 패턴은 매개변수가 증가함에 따라 해당 매개변수를 받는 생성자도 같이 증가하는 패턴이다.
+- 적은 개수의 매개변수를 받는 생성자가 `this()` 메서드를 통해서 더 많은 개수의 매개변수를 받는 생성자를 호출한다.
+- 매개변수의 개수가 늘어날수록 클라이언트 코드를 작성하고, 읽기 힘들다는 단점이 있다.
+
+### 자바빈즈 패턴(javabeans pattern)
+
+- 매개변수가 없는 생성자로 객체를 생성한 후에 세터 메서드를 사용하는 방법이다.
+- 객체 하나를 생성하기 위해서라면 많은 메서드를 호출해야 된다는 단점이 있다.
+- 또한 객체가 완전히 생성되기 전까지는 일관성(Consistency)를 보장할 수 없다.
+    - 일관성을 보장할 수 없기 때문에 클래스를 불변 상태로 만들 수 없다.
+    
+
+## 빌더를 사용하는 방법
+
+### 빌더 패턴(builder pattern)
+
+- 점층적 생성자 패턴의 안정성과 자바빈즈 패턴의 가독성을 겸비한 패턴이다.
+- 빌더 클래스의 객체를 생성하고, 빌더 클래스가 제공하는 메서드로 매개변수에 값을 입력한 뒤 최종적으로 `build()` 메서드를 이용하여 필요한 불변 객체를 얻는다.
+- 빌더 클래스가 제공하는 세터 메서드들은 자기 자신을 반환하기 때문에 연쇄적으로 호출 할 수 있다.
+    - 이러한 방식을 플루언트 API(fluent API) 혹은 메서드 체이닝(method chaining) 방식이라고 한다.
+
+```java
+@Getter
+public class BuilderCoffee {
+
+    private final int size;
+    private final int water;
+    private final boolean iced;
+
+    public static class Builder {
+        // 필수 매개변수
+        private final int size;
+        // 선택적 매개변수는 초기값을 가진다.
+        private int water = 0;
+        private boolean iced = false;
+
+        public Builder(int size) {
+            this.size = size;
+        }
+
+        public Builder water(int val) {
+            water = val;
+            return this;
+        }
+
+        public Builder iced(boolean b) {
+            iced = b;
+            return this;
+        }
+
+        public BuilderCoffee build() {
+            return new BuilderCoffee(this);
+        }
+    }
+
+    private BuilderCoffee(Builder builder) {
+        this.size = builder.size;
+        this.water = builder.water;
+        this.iced = builder.iced;
+    }
+}
+```
+
+- 빌더 패턴을 사용한 BuilderCoffee 클래스
+
+```java
+@Test
+void useBuilderPattern() {
+    BuilderCoffee coffee = new BuilderCoffee.Builder(100)
+            .iced(true)
+            .water(200)
+            .build();
+
+    assertThat(coffee.getSize()).isEqualTo(100);
+    assertThat(coffee.isIced()).isTrue();
+    assertThat(coffee.getWater()).isEqualTo(200);
+}
+```
+
+- 빌터 패턴을 이용한 객체 생성
+
+### 빌터 패턴을 사용할 때 잘못된 매개변수를 검사하는 방법
+
+- 빌더의 생성자와 메서드에서 입력 매개변수를 검사한다.
+- `build()` 메서드가 호출하는 생성자에서 여러 매개변수에 걸친 불변식(invariant)을 검사한다.
+- 불변식을 만족하지 않는 매개변수는 `IllegalArgumentException` 잘못된 부분과 함께 던지면 된다.
+
+> 📌 불변(immutable)
+> 
+> - 어떠한 변경도 허용하지 않는 것.
+> - 대표적인 불변 객체로는 `String` 객체가 있다.
+
+> 📌 불변식(invariant)
+> 
+> - 프로그램이 실행되는 동안, 또는 정해진 기간 동안 만족해야 하는 조건
+
+### 빌더 패턴의 장점
+
+- 클라이언트 입장에서 사용하기 쉽고, 가독성이 좋다.
+- 계층적으로 설계된 클래스와 함께 사용하기에 좋다.
+    - 계층적 빌더 클래스는 형변환을 하지 않고도 메서드 체이닝을 이어나가기 위해 this를 반환하는 대신 추상 메서드인 `self()` 를 사용한다.
+    - 이는 self 타입이 없는 자바를 위한 우회방법으로 시뮬레이트한 셀프 타입(simulated self-type) 관용구라고 한다.
+- 유연하기 때문에 빌더에 넘기는 매개변수에 따라 다른 객체를 생성할 수 도 있고, 특정 필드를 빌더가 알아서 입력하게 할 수 도 있다.
+
+### 빌더 패턴의 단점
+
+- 객체를 만들기 전 빌더부터 생성해야되기 때문에 객체의 생성 비용이 증가한다.
+- 생성자를 사용하는 것보다 코드가 장황하다.
+
+### Lombok의 @Builder
+
+- Lombok의 `@Builder` 애노테이션을 사용하면 간편하게 빌덛 패턴을 사용할 수 있다.
+- 클래스 위에 `@Builder`를 사용 시 `@AllArgsConstructor` 애노테이션을 붙은 효과를 발생시키기 때문에 모든 멤버 필드에 대한 매개변수를 받는다.
+- 따라 필요한 매개변수만을 받는 생성자를 만들고 해당 생성자 상단에 `@Builder` 애노테이션을 사용하는 것이 좋다.
+
+## 정리
+
+- 매개변수가 많거나, 확장 가능성이 있다면 생성자보다 빌더를 사용하는 것이 좋다.
+- 점층적 생성자보다 읽고 쓰기 편하고, 자바빈즈보다 안전하다.
+
+## 참고 자료
+
+- [Lombok의 @Builder, Project Lombok](https://projectlombok.org/features/Builder)
