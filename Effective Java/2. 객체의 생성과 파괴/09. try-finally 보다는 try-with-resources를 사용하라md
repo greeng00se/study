@@ -1,0 +1,45 @@
+> Joshua Bloch님의 Effective Java 3/E를 읽고 정리한 글입니다.
+> 
+
+## try-finally 보다는 try-with-resources를 사용하라
+
+- 자바 라이브러리에는 `java.sql.Connection`과 같이 `close()` 메서드를 호출해 닫아줘야 하는 자원이 있다.
+- 자원을 반환하는 부분은 클라이언트 쪽에서 실수를 할 경우가 있기 때문에 예측할 수 없는 성능 문제로도 이어지는 경우도 있다.
+- 어떻게 하면 안전하고 효율적이며 가독성이 좋은 방법으로 자원을 반환할 수 있을까?
+
+### try-finally
+
+```java
+static String readInputStream() throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    try {
+        return br.readLine();
+    } finally {
+        br.close();
+    }
+}
+```
+
+- 전통적으로 `try-finally`를 이용해서 자원의 닫힘을 보장했다.
+- 관리해야될 자원이 많아 지는 경우 코드가 복잡해지는 단점이 있다.
+- 예외가 여러 개 생기는 경우 이후에 발생한 예외 때문에 이전에 발생한 예외에 관한 정보가 남아 문제가 생길 수 있다.
+
+### try-with-resources
+
+```java
+static String readInputStream() throws IOException {
+    try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+        return br.readLine();
+    }
+}
+```
+
+- 자바 7 부터 사용이 가능하고, 사용하려면 해당 자원이 `AutoCloseable` 인터페이스를 구현해야 한다.
+- 읽기 쉽고, 문제를 분석하는 경우에도 훨씬 편하다.
+- 이전에 발생된 예외도 스택 추적 내역에 숨겨졌다(suppressed)라는 내용을 달고 출력된다.
+- 보통의 `try-finally` 구문처럼 `try-with-resources`에서도 catch 절을 사용할 수 있다.
+    - `try` 구문을 중첩하지 않고도 다수의 예외를 처리할 수 있다.
+
+## 정리
+
+- 자원을 반환할 때 효율적이고 가독성이 좋은 `try-with-resources`를 사용하자
