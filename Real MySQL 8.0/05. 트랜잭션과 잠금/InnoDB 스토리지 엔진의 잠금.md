@@ -39,12 +39,8 @@
 - 인텐션 배타적 잠금(IX, intention exclusive lock)
     - 트랜잭션이 테이블의 개별 로우에 대한 배타적 잠금을 수행하는 것을 나태낸다.
 
-|  | X | IX | S | IS |
-| --- | --- | --- | --- | --- |
-| X | Conflict | Conflict | Conflict | Conflict |
-| IX | Conflict | Compatible | Conflict | Compatible |
-| S | Conflict | Conflict | Compatible | Compatible |
-| IS | Conflict | Compatible | Compatible | Compatible |
+![image](https://user-images.githubusercontent.com/58586537/172538828-13fc582b-41e3-40c2-9e44-340a64a20fe0.png)
+
 - 잠금간의 호환성은 위와 같다.
 
  
