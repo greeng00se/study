@@ -1,6 +1,28 @@
 > Real MySQL 8.0을 읽고 정리한 글입니다.
 > 
 
+## 인덱스
+
+- 칼럼의 값과 해당 레코드가 저장된 주소를 `key-value` 형태로 만들어 일종의 목차를 만드는 것이다.
+- 데이터의 저장 (`INSERT`, `UPDATE`, `DELETE`) 성능이 줄어들지만 조희(`SELECT`)의 성능을 향상시킨다.
+
+```sql
+-- 인덱스 조회
+SHOW INDEX FROM table_name;
+
+-- 인덱스 생성
+CREATE INDEX index_key_name ON table_name (column_name);
+ALTER TABLE table_name ADD INDEX index_key_name (column_name);
+
+-- 인덱스 삭제
+ALTER TABLE table_name DROP INDEX idx_pname;
+
+-- 실제로 인덱스가 사용되는지 확인 (Type -> All & possible_keys	-> NULL 이면 사용되지 않는 것)
+EXPLAIN
+select * from table_name
+where column_name = '조회할 것';
+```
+
 ## B-Tree
 
 - B-Tree는 데이터베이스의 인덱싱 알고리즘 가운데 가장 일반적으로 사용되는 알고리즘이다.
@@ -49,12 +71,11 @@
     - 키 값이 32바이트 →  5천만개(372 * 372 * 372) 정도의 키 값을 담을 수 있다.
 - 실제로 아무리 대용량 데이터베이스라도 깊이가 5단계 이상으로 가는 경우는 흔치 않다.
 
-### 선택도(기수성)
+### 선택도(Selectivity), 기수성(Cardinality)
 
 - 인덱스의 키 값 가운데 유니크한 값의 수를 의미한다.
     - 예) 전체의 키 값이 100개일 때 유니크한 값의 수가 10개라면 기수성은 10이다.
-- 인덱스 키 값 중 중복된 값이 많아지면 기수성은 낮아지고 선택도 또한 떨어진다
-    - 예) 100개중 유니크한 값의 수가 20개로 늘어난다면 기수성이 5로 줄어든다.
+- 인덱스 키 값 중 중복된 값이 많아지면(유니크한 값이 줄어든다면) 기수성은 낮아지고 선택도 또한 떨어진다.
 - 선택도가 높을수록 검색 대상이 줄기 때문에 빠르게 처리된다.
 
 ```sql
