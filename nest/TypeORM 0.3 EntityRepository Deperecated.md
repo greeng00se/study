@@ -1,14 +1,13 @@
-## TypeORM 0.3 EntityRepository Deperecated
+## EntityRepository is deprecated
 
 - TypeORM 0.3.0 부터 `EntityRepository`가 deprecated 되었다.
 - nest에서 기존의 `EntityRepository` 을 사용하는 것과 사용방법이 유사한 해결방법을 찾게 되었다.
-    - 직접 데코레이터와 모듈을 생성하여 기존의 패턴을 유지하는 방법이다.
-- 해결 방법은 다음과 같다.
+- 직접 데코레이터를 생성하고, 데코레이터가 적용된 Repository를 받아줄 모듈을 사용하는 방법으로 해결 방법은 다음과 같다.
 
 ### @CustomRepository decorator 생성
 
 ```tsx
-// configs/typeorm-ex/typeorm-ex.decorator.ts
+// db/typeorm-ex.decorator.ts
 import { SetMetadata } from "@nestjs/common";
 
 export const TYPEORM_EX_CUSTOM_REPOSITORY = "TYPEORM_EX_CUSTOM_REPOSITORY";
@@ -24,6 +23,7 @@ export function CustomRepository(entity: Function): ClassDecorator {
 ### TypeOrmExModule 생성
 
 ```tsx
+// db/typeorm-ex.module
 import { DynamicModule, Provider } from "@nestjs/common";
 import { getDataSourceToken } from "@nestjs/typeorm";
 import { DataSource } from "typeorm";
@@ -59,6 +59,7 @@ export class TypeOrmExModule {
 }
 ```
 
+- `@CustomRepository` 데코레이터가 적용된 Repository를 받아줄 모듈이다.
 - `Reflect.getMetadata()` 메서드로 메타데이터 키값인 `TYPEORM_EX_CUSTOM_REPOSITORY`에 해당되는 엔티티를 가져온다.
 - 메타데이터 키값에 해당하는 엔티티가 존재하는 경우 Factory를 이용하여 provider를 동적으로 생성하여 providers에 추가한다.
 
