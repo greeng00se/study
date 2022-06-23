@@ -91,9 +91,9 @@ export class BookRepository extends Repository<Book> {
 
 ```tsx
 @Injectable()
-export class BoardsService {
+export class BookService {
   constructor(
-      private boardRepository: BoardRepository,
+      private bookRepository: BookRepository,
   ) {}
 
   ...
