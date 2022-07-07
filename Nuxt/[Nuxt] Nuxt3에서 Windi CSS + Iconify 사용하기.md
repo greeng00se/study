@@ -52,6 +52,7 @@ yarn add @iconify/vue
 
 ### 사용
 
+- pages 폴더 아래 index.vue 파일을 생성해서 간단하게 동작하는지 테스트할 수 있다.
 - iconify를 사용하려면 Icon을 import 해야 한다.
 - 사용할 수 있는 아이콘의 경우 다음 사이트에서 확인할 수 있다.
     - [https://icones.js.org/](https://icones.js.org/)
