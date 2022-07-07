@@ -1,5 +1,3 @@
-# [Nuxt] Nuxt3에서 Element Plus 사용하기
-
 ## Element Plus
 
 - Vue3의 UI Framework로 UI 관련해서 다양한 기능을 지원한다.
@@ -64,14 +62,17 @@ yarn add sass element-plus @element-plus/icons-vue unplugin-vue-components unplu
 - Element UI의 설정 파일을 전역 설정을 해줘야 한다.
     - 설정 파일은 assets/scss/index.scss에 생성한다.
 - 빌드 시 Element UI에 대한 의존성을 추가하기 위해 transpile에 아래와 같이 설정을 해줘야 된다고 한다.
+    - npm_lifecycle_event 변수로 npm이 어떤 모드로 동작중인지 확인한 후 빌드 중인 경우 추가한다.
 
 ```tsx
 import { defineNuxtConfig } from "nuxt";
 
+const lifecycle = process.env.npm_lifecycle_event;
+
 export default defineNuxtConfig({
   css: ["~/assets/scss/index.scss"],
   build: {
-    transpile: ["element-plus"],
+    transpile: lifecycle === "build" ? ["element-plus"] : [],
   },
 });
 ```
