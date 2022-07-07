@@ -52,8 +52,8 @@ yarn add @iconify/vue
 
 ### 사용
 
-- iconfiy를 사용하려면 Icon을 import 해야 한다.
-- icon의 경우 다음 사이트에서 골라서 사용할 수 있다.
+- iconify를 사용하려면 Icon을 import 해야 한다.
+- 사용할 수 있는 아이콘의 경우 다음 사이트에서 확인할 수 있다.
     - [https://icones.js.org/](https://icones.js.org/)
 
 ```tsx
