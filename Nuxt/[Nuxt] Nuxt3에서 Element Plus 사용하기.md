@@ -5,6 +5,21 @@
 - Vue3의 UI Framework로 UI 관련해서 다양한 기능을 지원한다.
 - 아래 설정한 내용은 [Github](https://github.com/greeng00se/nuxt3-starter)에서 확인할 수 있다.
 
+### 설치 전
+
+- 시작하기 전 다음 명령어로 Nuxt3 프로젝트가 생성되어 있어야 한다.
+
+```bash
+npx nuxi init nuxt-app
+```
+
+- 그리고 Nuxt3의 프로젝트 폴더에 의존성이 모두 추가되어 있어야 한다.
+
+```bash
+cd nuxt-app
+yarn
+```
+
 ### 설치
 
 - Element UI를 사용하려면 다음 의존성을 설치해야 한다.
@@ -16,6 +31,32 @@
 
 ```bash
 yarn add sass element-plus @element-plus/icons-vue unplugin-vue-components unplugin-auto-import
+```
+
+### package.json
+
+- 설치를 하고 나면 package.json파일이 아래와 유사한 형태가 될 것이다.
+
+```json
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "devDependencies": {
+    "nuxt": "3.0.0-rc.4"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.0.6",
+    "element-plus": "^2.2.8",
+    "sass": "^1.53.0",
+    "unplugin-auto-import": "^0.9.2",
+    "unplugin-vue-components": "^0.21.1"
+  }
+}
 ```
 
 ### nuxt 설정
