@@ -2,6 +2,7 @@
 
 - Vuex와 비슷한 Vue의 상태관리 프레임워크다.
 - 최근에 Vue의 개발자인 Evan You가 Pinia가 Vuex5와 동일하다고 트위터에서 언급한 적이 있다.
+- 아래 설정한 내용은 [Github](https://github.com/greeng00se/nuxt3-starter)에서 확인할 수 있다.
 
 ### Pinia 설치
 
