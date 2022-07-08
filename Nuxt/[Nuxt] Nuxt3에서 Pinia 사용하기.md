@@ -50,7 +50,7 @@ export const useCounterStore = defineStore('counter', () => {
 ### pinia store 사용
 
 - pages/index.vue 파일에 아래의 코드를 작성하여 테스트했다.
-- 아래와 같이 CouterStore를 사용하면된다.
+- 아래와 같이 CounterStore를 사용하면된다.
 
 ```tsx
 <template>

@@ -80,7 +80,7 @@ export default defineNuxtConfig({
 ### Element Plus 설정파일
 
 - Nuxt의 경우 스타일 관련 파일은 assets 폴더 아래에 위치한다.
-- assets/scss/index.css 파일을 생성하여 다음과 같이 입력하고 저장한다.
+- assets/scss/index.scss 파일을 생성하여 다음과 같이 입력하고 저장한다.
 
 ```scss
 @use "element-plus/dist/index.css"
