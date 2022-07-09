@@ -86,6 +86,22 @@ export default defineNuxtConfig({
 @use "element-plus/dist/index.css"
 ```
 
+### 플러그인 설정
+
+- Nuxt는 자동으로 plugins 디렉토리에 있는 파일을 읽고 로드한다.
+- vueApp에 대해 전역적으로 등록하는 경우 plugins에서 설정할 수도 있다.
+- plugins/element.ts 파일을 생성하여 아래와 같이 설정한다.
+
+```java
+import * as ElementPlusIconsVue from '@element-plus/icons-vue';
+
+export default defineNuxtPlugin(nuxtApp => {
+  for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    nuxtApp.vueApp.component(key, component)
+  }
+})
+```
+
 ### Element Plus 사용
 
 - Nuxt에서 기본 생성되는 App.vue 파일을 지우면 기본적으로 pages/index.vue 파일이 메인으로 설정된다.
@@ -96,11 +112,12 @@ export default defineNuxtConfig({
 <template>
   <div>
     <el-button>Default</el-button>
+    <el-icon><User style="font-size:24px;"/></el-icon>
   </div>
 </template>
 
 <script setup>
-import { ElButton } from "element-plus"
+import { ElButton, ElIcon } from "element-plus"
 </script>
 
 <style scoped>
