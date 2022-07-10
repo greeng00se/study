@@ -1,5 +1,3 @@
-# [Nuxt] Nuxt3에서 Element Plus 사용하기
-
 ## Element Plus
 
 - Vue3의 UI Framework로 UI 관련해서 다양한 기능을 지원한다.
@@ -88,17 +86,22 @@ export default defineNuxtConfig({
 @use "element-plus/dist/index.css"
 ```
 
-### 아이콘 등록하기
+### Element Plus & Icon 전역 설정
 
 - Nuxt는 자동으로 plugins 디렉토리에 있는 파일을 읽고 로드한다.
 - vueApp에 대해 전역적으로 등록하는 경우 plugins에서 설정할 수도 있다.
-- Element Icon의 경우 vueApp에 등록해서 사용해야 한다.
+- 전역 설정을 한다면 vue파일에서 따로 Import 하지 않아도 사용할 수 있다.
 - plugins/element.ts 파일을 생성하여 아래와 같이 설정한다.
 
 ```java
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
+import ElementPlus from 'element-plus';
 
 export default defineNuxtPlugin(nuxtApp => {
+  // ElementPlus
+  nuxtApp.vueApp.use(ElementPlus, { size: 'small', zIndex: 3000 });
+
+  // ElementPlus Icons
   for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     nuxtApp.vueApp.component(key, component)
   }
@@ -109,19 +112,17 @@ export default defineNuxtPlugin(nuxtApp => {
 
 - Nuxt에서 기본 생성되는 App.vue 파일을 지우면 기본적으로 pages/index.vue 파일이 메인으로 설정된다.
 - pages 폴더 아래 index.vue 파일을 생성해서 간단하게 동작하는지 테스트할 수 있다.
-- Element Plus의 경우 사용하려는 컴포넌트를 하나씩 import를 해줘야하는 것 같다.
 
 ```tsx
+<script setup>
+</script>
+
 <template>
   <div>
     <el-button>Default</el-button>
     <el-icon><User style="font-size:24px;"/></el-icon>
   </div>
 </template>
-
-<script setup>
-import { ElButton, ElIcon } from "element-plus"
-</script>
 
 <style scoped>
 </style>
