@@ -1,5 +1,3 @@
-# [Nuxt] Nuxt3에서 Vuetify 사용하기
-
 ## Vuetify
 
 - Vue.js 기반의 UI 프레임워크다.
@@ -110,8 +108,7 @@ export default defineNuxtConfig({
 
 ### Vuetify 사용
 
-- pages 폴더 아래 index.vue 파일을 생성해서 간단하게 동작하는지 테스트할 수 있다.
-- Element Plus와 다르게 Import 구문이 따로 없어도 vuetify가 잘 작동한다.
+- pages 폴더 아래 index.vue 파일을 생성해서 동작하는지 확인할 수 있다.
 
 ```tsx
 <template>
