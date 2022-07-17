@@ -7,6 +7,9 @@
 
 ![image](https://user-images.githubusercontent.com/58586537/179375374-d9c611aa-046c-4bbc-b948-3cdcc34aea5d.png)
 
+- 만약 직접 데이터베이스를 구축하고, SSL/TLS 구성을 해야한다면 다음을 참고하여 설정을 할 수 있다.
+    - [Creating SSL and RSA Certificates and Keys using MySQL](https://dev.mysql.com/doc/refman/8.0/en/creating-ssl-rsa-files-using-mysql.html)
+    
 ### Database에서 지원하는 SSL/TLS 설정
 
 - 현재 토이프로젝트에선 Azure Database for MySQL을 사용하고 있다.
