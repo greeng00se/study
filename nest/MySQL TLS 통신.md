@@ -9,7 +9,7 @@
 
 - 만약 직접 데이터베이스를 구축하고, SSL/TLS 구성을 해야한다면 다음을 참고하여 설정을 할 수 있다.
     - [Creating SSL and RSA Certificates and Keys using MySQL](https://dev.mysql.com/doc/refman/8.0/en/creating-ssl-rsa-files-using-mysql.html)
-    
+
 ### Database에서 지원하는 SSL/TLS 설정
 
 - 현재 토이프로젝트에선 Azure Database for MySQL을 사용하고 있다.
@@ -104,9 +104,9 @@ jobs:
       - name: Test and coverage
         run: npm run test:cov
         env:
-          RDS_HOSTNAME: ${{ secrets.RDS_HOSTNAME }}
-          RDS_USERNAME: ${{ secrets.RDS_USERNAME }}
-          RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
+          RDS_HOSTNAME: ${{ secrets.DB_HOSTNAME }}
+          RDS_USERNAME: ${{ secrets.DB_USERNAME }}
+          RDS_PASSWORD: ${{ secrets.DB_PASSWORD }}
           SSL_CERT: ${{ secrets.SSL_CERT }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
       - name: SonarCloud Scan
