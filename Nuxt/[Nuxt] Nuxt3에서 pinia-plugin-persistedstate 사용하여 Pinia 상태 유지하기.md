@@ -10,7 +10,7 @@
 yarn add pinia-plugin-persistedstate
 ```
 
-- 설치 후 plugins 폴더안에 다음과 같이 설정해야 한다.
+### 로컬 스토리지를 사용하도록 설정
 
 ```tsx
 // plugins/persistedstate.cliend.ts
@@ -21,8 +21,28 @@ export default defineNuxtPlugin((nuxtApp) => {
 });
 ```
 
-- SSR을 위해 쿠키를 이용하는 방법도 존재한다.
-- 현재 Nuxt3를 정적 웹사이트를 생성하는 용도로 사용하고 있기 때문에 위와 같이 설정하였다.
+- 설치 후 plugins 폴더안 위와 같이 설정해야 한다.
+- 기본적으로 로컬 스토리지를 사용하여 상태유지를 한다.
+
+### 쿠키를 사용하도록 설정
+
+```tsx
+// plugins/persistedstate.cliend.ts
+import { useCookie } from '#app';
+import { createNuxtPersistedState } from 'pinia-plugin-persistedstate/nuxt';
+
+export default defineNuxtPlugin(nuxtApp => {
+  nuxtApp.$pinia.use(createNuxtPersistedState(useCookie, {
+    cookieOptions: {
+      maxAge: 3600,
+      sameSite: 'strict',
+    }
+  }))
+})
+```
+
+- 쿠키를 사용하여 상태유지를 하도록 설정할 수 도 있다.
+- SSR을 사용하거나, 만료 시간을 설정하고 싶은 경우 위와 같이 설정해야 한다.
 
 ### 사용
 
@@ -41,7 +61,7 @@ export const useAuthStore = defineStore(
 
 - Composition API 형식으로 pinia를 사용하는 경우 위와 같이 `persist: true`를 추가해주면 된다.
 - 로컬스토리지에서 키의 기본값은 스토어명으로 설정된다.
-- 추가로 옵션 설정을 통해 세션 스토리지를 사용할 수도 있고, 직렬화 설정, 상태를 복원할 때 전처리 및 후처리를 위한 Hook function을 사용할 수도 있다.
+- 옵션 설정을 통해 세션 스토리지 사용, 직렬화 설정, 상태를 복원할 때 전처리 및 후처리를 위한 Hook function을 사용할 수도 있다.
 
 ## 참고 자료
 
