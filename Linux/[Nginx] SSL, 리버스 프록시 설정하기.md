@@ -1,3 +1,5 @@
+# [Nginx] SSL, 리버스 프록시 설정하기
+
 ### 개요
 
 - 현재 프론트엔드 애플리케이션의 경우 Cloudflare Pages를 이용하여 배포해 사용중입니다.
@@ -31,7 +33,7 @@ sudo apt-get install nginx
 
 ![image](https://user-images.githubusercontent.com/58586537/183416686-2cc5d9e0-6d39-41a0-94fb-9509781c23f2.png)
 
-- 백엔드 API의 주소를 https://api.booklog.dev 로 설정하기 위해 A 레코드를 현재 nginx가 설치된 인스턴스의 IP로 설정했습니다.
+- 백엔드 API의 주소를 `api.booklog.dev` 로 설정하기 위해 A 레코드를 현재 nginx가 설치된 인스턴스의 IP로 설정했습니다.
 - Proxy status를 이용한다면 프록시 호스트에 대한 요청이 Cloudflare로 이동한 다음 원본 서버로 전달됩니다.
     - Cloudflare가 제공하는 기능(모든 요청을 최적화, 캐싱, DDos 공격에 대한 보호)을 사용 할 수 있지만 무료 플랜의 경우 국내 엣지를 사용하지 않아 더 느려질 수 있다고 합니다.
 
@@ -61,7 +63,7 @@ server {
     - 백엔드 API는 nest.js로 작성되어 있으며 현재 동일 서버에 3000번 포트에서 작동하고 있습니다.
     - 헤더를 변경한다던지 접근하는 uri에 따라 다른 서버로 요청을 전달 할 수도 있습니다.
 - certbot으로 발급한 인증서에 대한 정보도 설정합니다.
-- 위와 같이 설정하게 되면 https://api.booklog.dev로 들어오는 모든 요청을 프록시가 받아 백엔드 API에 전달하고 해당 요청에 대한 응답을 클라이언트에게 전달합니다.
+- 위와 같이 설정하게 되면 `api.booklog.dev`로 들어오는 모든 요청을 프록시가 받아 백엔드 API에 전달하고 해당 요청에 대한 응답을 클라이언트에게 전달합니다.
 
 ### Nginx 설정 파일 체크와 리로딩
 
