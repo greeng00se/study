@@ -29,7 +29,7 @@ sudo apt-get install nginx
 
 ### A 레코드 설정
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0579bf19-267d-471d-81ce-73155e2a8e49/Untitled.png)
+![image](https://user-images.githubusercontent.com/58586537/183416686-2cc5d9e0-6d39-41a0-94fb-9509781c23f2.png)
 
 - 백엔드 API의 주소를 https://api.booklog.dev 로 설정하기 위해 A 레코드를 현재 nginx가 설치된 인스턴스의 IP로 설정했습니다.
 - Proxy status를 이용한다면 프록시 호스트에 대한 요청이 Cloudflare로 이동한 다음 원본 서버로 전달됩니다.
