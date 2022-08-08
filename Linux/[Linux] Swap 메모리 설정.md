@@ -80,3 +80,7 @@ sudo rm /swapfile
 ```
 
 - 만약 `/etc/fstab`에 값을 설정했을 경우 해당 값을 지워야합니다.
+
+## 참고 자료
+
+- [How to Add Swap Space on Ubuntu 20.04, Lunuxize](https://linuxize.com/post/how-to-add-swap-space-on-ubuntu-20-04/)
