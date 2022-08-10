@@ -8,7 +8,7 @@
 
 ### 환경
 
-```bash
+```json
 "devDependencies": {
     "nuxt": "^3.0.0-rc.6"
   },
@@ -18,7 +18,7 @@
   "nuxi": "^3.0.0-rc.6",
   "sass": "^1.53.0",
   "vee-validate": "^4.6.4",
-  "vuetify": "^3.0.0-beta.7"
+  "vuetify": "^3.0.0-beta.7",
   "yup": "^0.32.11"
 }
 ```
