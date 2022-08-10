@@ -115,10 +115,11 @@ const onSubmit = () => {
 - Form에는 yup으로 생성한 오브젝트 스키마에 대한 값이 들어가야합니다.
     - yup에 대한 자세한 사용법 → [https://www.npmjs.com/package/yup](https://www.npmjs.com/package/yup)
 - Field 컴포넌트를 이용하여 위와 같이 유효성 검증을 할 수 있습니다.
-- Field 컴포넌트를 이용하여 하나씩 설정을 하기에는 반복되는 부분도 많고 복잡합니다.
+    - name에는 yup으로 생성한 오브젝트 스키마의 필드명이 들어가야 합니다.
 
 ### 유효성 검증을 위한 컴포넌트 추가
 
+- Field 컴포넌트를 이용하여 하나씩 설정을 하기에는 반복되는 부분도 많고 복잡하기 때문에 검증을 위한 컴포넌트를 작성하여 사용해보겠습니다.
 - nuxt의 경우 components 폴더 아래 Vue 컴포넌트를 작성한다면 다른 페이지에서 import 하지 않고 사용할 수 있습니다.
 
 ```tsx
@@ -176,6 +177,7 @@ const { value, handleBlur, errors } = useField(toRef(props, "name"), undefined);
 ```
 
 - Form에 대한 코드를 이전보다 간소하게 작성할 수 있습니다.
+    - 컴포넌트의 name에는 yup.object로 생성한 스키마의 필드명이 들어가야합니다.
 
 ### 에러 메시지 언어 설정
 
