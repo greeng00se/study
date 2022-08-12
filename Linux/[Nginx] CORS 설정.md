@@ -6,7 +6,7 @@
 - 프론트는 Cloudflare Pages를 사용하여 정적 웹 페이지 형태로 배포를 했고 Cloudflare Pages에서 _redirects 파일을 통한 프록시를 아직 지원하지 않기에 서버쪽에서 설정을 하였습니다.
 - 현재 백엔드는 Nginx에 리버스 프록시를 설정해두었기 때문에 Nginx에 CORS 관련 내용을 설정하였습니다.
 
-### **교차 출처 리소스 공유**(Cross-Origin Resource Sharing, CORS)
+### 교차 출처 리소스 공유(Cross-Origin Resource Sharing, CORS)
 
 > 추가 HTTP 헤더를 사용하여, 한 출처에서 실행 중인 웹 애플리케이션이 다른 출처의 선택한 자원에 접근할 수 있는 권한을 부여하도록 브라우저에 알려주는 체제입니다.
 - Mozilla Developer Network
