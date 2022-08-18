@@ -43,6 +43,9 @@ CMD ["node", "server.js"]
 
 ### 이미지 레이어
 
+- 이미지의 모든 명령은 캐시 가능한 레이어를 생성한다.
+- 레이어는 이미지 재구축을 및 공유를 도와준다.
+
 ```docker
 # 이미지 사용
 FROM node
@@ -70,4 +73,3 @@ CMD ["node", "server.js"]
 ```
 
 - 캐시된다는 점을 이용해 명령어 최적화
-- Layer Based Architecture 기억하기
