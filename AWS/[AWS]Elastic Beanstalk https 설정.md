@@ -11,20 +11,20 @@
 <img width="1112" alt="image" src="https://user-images.githubusercontent.com/58586537/190102979-48d97c29-1d9c-4839-a997-986d5eb606ac.png">
 
 - 인증서 발급 요청은 퍼블릭 인증서의 경우 무료로 발급받을 수 있습니다.
-- A 레코드를 따로 사용할 경우 앞에 *을 붙여서 정규화된 도메인명으로 등록합니다.
-- 호스트가 없는 도메인을 사용하는 경우 따로 등록해야 합니다.
+- 동일한 인증서로 여러 사이트를 보호하려는 경우 *.를 붙여서 요청할 수 있습니다.
 - 도메인 검증과 이메일 검증이 있는데 도메인 검증을 하는 것을 권장합니다. 
 
 ### Route 53에서 레코드 생성
 <img width="1177" alt="image" src="https://user-images.githubusercontent.com/58586537/190106963-3341660f-a6db-4f7d-a59b-c50c79cde891.png">
 
 - 도메인 검증을 하기 위해서는 Route 53에 등록한 호스트 영역에 CNAME 레코드를 등록해야하는데 인증서 페이지에서 편하게 등록이 가능합니다. 
+
 <img width="1194" alt="image" src="https://user-images.githubusercontent.com/58586537/190107334-c0215a59-5da5-4230-a0e6-2c8babda391d.png">
 
 ### Beanstalk ALB 리스너 & 프로세스추가
 <img width="933" alt="image" src="https://user-images.githubusercontent.com/58586537/190142682-f3c877d2-b2ce-49f4-9004-d10d6ba9a475.png">
 
-- 이전에 발급받은 인증서를 이용하여 Application Load Balancer에 리스너를 추가합니다.
+- 이전에 발급받은 인증서를 이용하여 ALB에 리스너를 추가합니다.
 - 로드밸런서가 프로세스의 상태 검사를 할 수 있도록 상태 검사 경로도 https로 설정해줍니다.
 - 추가로 아래 링크의 설정을 통해 로드밸런서에서 백그라운드 프로세스간 암호화도 할 수 있습니다.
     - https://aws.amazon.com/ko/premiumsupport/knowledge-center/elastic-beanstalk-https-configuration/
