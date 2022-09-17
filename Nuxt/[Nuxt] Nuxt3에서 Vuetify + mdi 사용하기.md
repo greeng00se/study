@@ -128,3 +128,4 @@ export default defineNuxtConfig({
 
 - [vuetify installation, Vuetify](https://next.vuetifyjs.com/en/getting-started/installation/)
 - [v-icon, nuxt discussions](https://github.com/nuxt/framework/discussions/1183#discussioncomment-2682117)
+- [How to use Vuetify with Nuxt3](https://codybontecou.com/how-to-use-vuetify-with-nuxt-3.html#integrate-vuetify-s-mdi-icons)

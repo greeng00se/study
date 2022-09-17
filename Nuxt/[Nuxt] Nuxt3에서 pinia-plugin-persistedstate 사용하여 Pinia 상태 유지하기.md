@@ -13,7 +13,7 @@ yarn add pinia-plugin-persistedstate
 ### 로컬 스토리지를 사용하도록 설정
 
 ```tsx
-// plugins/persistedstate.cliend.ts
+// plugins/persistedstate.client.ts
 import { createPersistedState } from "pinia-plugin-persistedstate";
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -27,7 +27,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 ### 쿠키를 사용하도록 설정
 
 ```tsx
-// plugins/persistedstate.cliend.ts
+// plugins/persistedstate.client.ts
 import { useCookie } from '#app';
 import { createNuxtPersistedState } from 'pinia-plugin-persistedstate/nuxt';
 
