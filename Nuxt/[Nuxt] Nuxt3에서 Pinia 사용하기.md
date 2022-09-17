@@ -1,7 +1,15 @@
+# [Nuxt] Nuxt3에서 Pinia 사용하기
+
 ### Pinia
 
 - Vuex와 유사한 Vue의 상태관리 프레임워크입니다.
 - Pinia를 사용한다면 구성 요소 및 페이지 간 상태를 공유할 수 있습니다.
+
+### 사용 환경
+
+- Node Version: `v16.13.1`
+- Nuxt Version: `3.0.0-rc.9`
+- Package Manager: `yarn@1.22.17`
 
 ### Pinia 설치
 
