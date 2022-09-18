@@ -1,18 +1,18 @@
 ### Route53에 호스트 영역 등록
 - ALB에서 사용하기 위한 인증서 발급을 위해 Route 53에 호스트 영역을 등록 해줍니다.
-- 기존에 namecheap에서 도메인을 구매했기 때문에 namecheap에서 NS 레코드를 등록해줬습니다.
+- Route 53에서 호스트 영역을 등록하면 다음과 같이 NS 레코드가 나오는데 이를 도메인을 구매한 곳에서 등록해줘야 합니다.
 
-<img width="1034" alt="image" src="https://user-images.githubusercontent.com/58586537/190102092-b5cf1d1f-b052-441a-b8ce-c5fde069c707.png">
+<img width="903" alt="image" src="https://user-images.githubusercontent.com/58586537/190881813-7fbf9c25-a653-4b16-a6f6-f2e5c526f636.png">
 
-- 아래 4개의 레코드가 Route 53에서 자동 생성한 레코드입니다.
+- 기존에 namecheap에서 도메인을 구매했기 때문에 namecheap에서 Custom DNS를 등록해줬습니다.
 - Route 53의 처음 25개 호스팅 영역의 경우 호스팅 영역당 한 달에 0.50 USD 의 비용이 발생합니다.
 
 ### ACM에서 퍼블릭 인증서 요청
 <img width="1112" alt="image" src="https://user-images.githubusercontent.com/58586537/190102979-48d97c29-1d9c-4839-a997-986d5eb606ac.png">
 
-- 인증서 발급 요청은 퍼블릭 인증서의 경우 무료로 발급받을 수 있습니다.
+- 인증서는 퍼블릭 인증서의 경우에만 무료로 발급 요청을 할 수 있습니다.
 - 동일한 인증서로 여러 사이트를 보호하려는 경우 *.를 붙여서 요청할 수 있습니다.
-- 도메인 검증과 이메일 검증이 있는데 도메인 검증을 하는 것을 권장합니다. 
+- 도메인 검증과 이메일 검증이 있는데 도메인 검증을 하는 것을 권장합니다.
 
 ### Route 53에서 레코드 생성
 <img width="1177" alt="image" src="https://user-images.githubusercontent.com/58586537/190106963-3341660f-a6db-4f7d-a59b-c50c79cde891.png">
