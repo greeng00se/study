@@ -33,8 +33,8 @@ server {
             add_header 'Access-Control-Max-Age' 86400;
             return 204;
         }
-        add_header 'Access-Control-Allow-Origin' '*';
-        add_header 'Content-Type' 'application/json';
+        add_header 'Access-Control-Allow-Origin' '*' always;
+        add_header 'Content-Type' 'application/json' always;
         proxy_pass http://localhost:3000/;
     }
 
@@ -49,7 +49,7 @@ server {
 - Content-Type이 application/json인 경우 실제 요청을 전송하기 전 OPTIONS 메서드를 이용하여 요청이 안전한지 확인합니다. 이를 사전 요청(Preflighted Request)이라고 합니다.
 - 사전 요청에 관해서는 204 No Content를 반환하는 것을 권장하고 있습니다.
 - 백엔드 API의 일부 요청에 Bearer 토큰을 이용한 인증을 요구함으로 Authroization 헤더도 허용하도록 설정했습니다.
-- 설정을 마친 후 `nginx -t` 명령어를 사용하여 설정 파일이 정상적인지 체크 후 `nginx - reload` 명령어로 nginx 서버를 재구동하였습니다.
+- 설정을 마친 후 `nginx -t` 명령어를 사용하여 설정 파일이 정상적인지 체크 후 `nginx -s reload` 명령어로 nginx 서버를 재구동하였습니다.
 
 ## 참고 자료
 
