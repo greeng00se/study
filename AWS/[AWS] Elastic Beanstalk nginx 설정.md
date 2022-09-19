@@ -13,7 +13,7 @@
 `-- other source files
 ```
 
-- `.platform/nginx/` 경로 아래 `nginx.conf` 파일을 생성하여 사용하면 됩니다.
+- nginx 구성 전체를 재정의 하는 경우 `.platform/nginx/` 경로 아래 `nginx.conf` 파일을 생성하고 설정 값을 넣어줍니다.
 
 ### nginx 구성 확장
 
@@ -62,11 +62,11 @@ server {
 - 압축을 해제한다면 위와 같은 구성이 되도록 압축해줍니다.
 
 ```bash
-# 빌드 후 jar 파일 이동
+# 빌드 후 jar 파일 프로젝트 최상위 경로로 이동
 mv ./build/libs/application.jar .
 
 # 압축
-zip -r application.zip .platform application.jar Procfile
+zip -r application.zip .platform application.jar
 ```
 
 - Jar 파일과 .platform 아래 모든 파일을 같이 압축하고 EB에 배포하면 됩니다.
