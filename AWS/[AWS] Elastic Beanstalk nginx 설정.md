@@ -41,9 +41,8 @@ server {
             add_header 'Access-Control-Max-Age' 86400;
             return 204;
         }
-        add_header 'Access-Control-Allow-Origin' '*';
-        add_header 'Content-Type' 'application/json';
-        proxy_pass http://localhost:5000/;
+        add_header 'Access-Control-Allow-Origin' '*' always;
+        add_header 'Content-Type' 'application/json' always;
     }
 }
 ```
