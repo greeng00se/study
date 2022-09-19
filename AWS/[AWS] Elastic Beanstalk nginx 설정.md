@@ -43,6 +43,7 @@ server {
         }
         add_header 'Access-Control-Allow-Origin' '*' always;
         add_header 'Content-Type' 'application/json' always;
+        proxy_pass http://localhost:5000/;
     }
 }
 ```
