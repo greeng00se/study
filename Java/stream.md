@@ -43,3 +43,23 @@
 ### 리듀싱
 
 - `reduce()` → 모든 스트림 요소를 처리해서 값으로 도출하는 연산
+
+### 컬렉터(Collectors)
+
+- `minBy(),` `maxBy()` → 최소, 최대값
+- `summeringInt()`, `averagingInt()`, `summarizingInt()`→ 합, 평균, 요약 연산
+    - Int, Long, Double 연산 존재
+- `joining()` → 문자열 연결
+- `reducing()` → 범용 리듀싱 요약 연산
+    - 첫 번째 인수 → 리듀싱 연산의 시작값이거나, 스트림에 인수가 없는 경우 반환값
+    - 두 번째 인수 → 변환 함수
+    - 세 번째 인수 → 같은 종류의 두 항목을 하나의 값으로 더하는 op
+
+> collect와 reduce
+가변 컨테이너 관련 작업이면서 병렬성을 확보하려면 collect 메서드로 리듀싱 연산을 구현하는 것이 바람직함
+> 
+- `groupingBy()` → 그룹화, 메서드 참조나 람다 표현식으로 구현 가능
+    - + filtering → Predicate를 인수로 받아 각 그룹의 요소와 필터링 된 요소를 재그룹화 가능
+    - + mapping → 요소를 변환하는 작업 가능
+    - + flatMapping → 평면화
+- `partitioningBy()` → Predicate를 받아 분할
