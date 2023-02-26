@@ -1,17 +1,13 @@
-미션에서 자주 사용하는 Scanner와 같이, close를 호출해 자원을 닫아줘야 하는 경우가 있다.
-
-자원을 닫지 않는 경우, 예측할 수 없는 성능 문제로 이어질 때가 있다. (메모리 문제 등..)
-
-따라서 자원을 사용했다면 반납을 해야하는데, 자원을 반납하는 방법에는 어떤 것이 있는지 알아보자.
+사용한 자원을 반납하는 방법에는 어떤 것이 있는지 알아보자.
 
 ### try-finally를 이용한 자원 반납
 
 ```java
-Scanner scanner = new Scanner(System.in);
+MyResource myResource = new MyResource();
 try {
-    scanner.nextLine();
+    myResource.doSomething();
 } finally {
-    scanner.close();
+    myResource.close();
 }
 ```
 
@@ -20,8 +16,8 @@ try-with-resources 기능이 나오기 전에는 자원을 사용하고, finally
 ### try-with-resources
 
 ```java
-try (Scanner scanner = new Scanner(System.in)) {
-    scanner.nextLine();
+try (MyResource myResource = new MyResource();) {
+    myResource.doSomething();
 }
 ```
 
