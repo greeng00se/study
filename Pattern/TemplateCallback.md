@@ -63,6 +63,22 @@ private void executeUpdate(final String query, final String... parameters) {
 }
 ```
 
+String 타입이 아닌 다양한 타입을 입력하고 싶으면 executeUpdate 메서드를 다음과 같이 개선할 수 있습니다.
+
+```java
+private void executeUpdate(final String query, final Object... parameters) {
+    try (final var connection = getConnection();
+         final var preparedStatement = connection.prepareStatement(query)) {
+        for (int i = 1; i <= parameters.length; i++) {
+            preparedStatement.setObject(i, parameters[i - 1]);
+        }
+        preparedStatement.executeUpdate();
+    } catch (SQLException ex) {
+        throw new IllegalArgumentException("입력이 올바르지 않습니다.");
+    }
+}
+```
+
 ### 조회 분리하기
 
 그렇다면 조회의 경우 어떻게 분리할 수 있을까요?
@@ -210,12 +226,12 @@ public interface RowMapper<T> {
 위에서 사용한 가변인수를 사용하여 매개변수도 여러 개 받을 수 있게 적용한다면 다음과 같이 변경할 수 있을 것 같습니다.
 
 ```java
-private <T> T executeQuery(final String query, final RowMapper<T> rowMapper, final String... parameters) {
+private <T> T executeQuery(final String query, final RowMapper<T> rowMapper, final Object... parameters) {
     try (final var connection = getConnection();
          final var preparedStatement = connection.prepareStatement(query)) {
         final var resultSet = preparedStatement.executeQuery();
         for (int i = 1; i <= parameters.length; i++) {
-            preparedStatement.setString(1, parameters[i - 1]);
+            preparedStatement.setObject(1, parameters[i - 1]);
         }
         return rowMapper.mapRow(resultSet);
     } catch (final SQLException e) {
@@ -258,10 +274,10 @@ public class JdbcTemplate {
         this.connection = connection;
     }
 
-    private void executeUpdate(final String query, final String... parameters) {
+    public void executeUpdate(final String query, final Object... parameters) {
         try (final var preparedStatement = connection.prepareStatement(query)) {
             for (int i = 1; i <= parameters.length; i++) {
-                preparedStatement.setString(1, parameters[i - 1]);
+                preparedStatement.setObject(1, parameters[i - 1]);
             }
             preparedStatement.executeUpdate();
         } catch (final SQLException e) {
@@ -269,11 +285,11 @@ public class JdbcTemplate {
         }
     }
 
-    private <T> T executeQuery(final String query, final RowMapper<T> rowMapper, final String... parameters) {
+    public <T> T executeQuery(final String query, final RowMapper<T> rowMapper, final Object... parameters) {
         try (final var preparedStatement = connection.prepareStatement(query)) {
             final var resultSet = preparedStatement.executeQuery();
             for (int i = 1; i <= parameters.length; i++) {
-                preparedStatement.setString(1, parameters[i - 1]);
+                preparedStatement.setObject(1, parameters[i - 1]);
             }
             return rowMapper.mapRow(resultSet);
         } catch (final SQLException e) {
@@ -340,3 +356,5 @@ public class MyDao {
 위에서 적용한 패턴은 템플릿 콜백 패턴입니다.
 
 이는 전략 패턴의 변형으로, 전략 패턴을 익명 클래스와 함께 사용하는 패턴입니다.
+
+오늘도 행복한 하루 보내세요. 날씨가 많이 따뜻해졌는데 황사 조심하시고 환절기 감기 조심하세요~ (박스터가 시킴)
