@@ -229,10 +229,10 @@ public interface RowMapper<T> {
 private <T> T executeQuery(final String query, final RowMapper<T> rowMapper, final Object... parameters) {
     try (final var connection = getConnection();
          final var preparedStatement = connection.prepareStatement(query)) {
-        final var resultSet = preparedStatement.executeQuery();
         for (int i = 1; i <= parameters.length; i++) {
             preparedStatement.setObject(1, parameters[i - 1]);
         }
+        final var resultSet = preparedStatement.executeQuery();
         return rowMapper.mapRow(resultSet);
     } catch (final SQLException e) {
         throw new IllegalArgumentException(e.getMessage());
@@ -287,10 +287,10 @@ public class JdbcTemplate {
 
     public <T> T executeQuery(final String query, final RowMapper<T> rowMapper, final Object... parameters) {
         try (final var preparedStatement = connection.prepareStatement(query)) {
-            final var resultSet = preparedStatement.executeQuery();
             for (int i = 1; i <= parameters.length; i++) {
                 preparedStatement.setObject(1, parameters[i - 1]);
             }
+            final var resultSet = preparedStatement.executeQuery();
             return rowMapper.mapRow(resultSet);
         } catch (final SQLException e) {
             throw new IllegalArgumentException(e.getMessage());
@@ -356,5 +356,3 @@ public class MyDao {
 위에서 적용한 패턴은 템플릿 콜백 패턴입니다.
 
 이는 전략 패턴의 변형으로, 전략 패턴을 익명 클래스와 함께 사용하는 패턴입니다.
-
-오늘도 행복한 하루 보내세요. 날씨가 많이 따뜻해졌는데 황사 조심하시고 환절기 감기 조심하세요~ (박스터가 시킴)
