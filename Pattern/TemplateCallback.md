@@ -54,7 +54,7 @@ private void executeUpdate(final String query, final String... parameters) {
     try (final var connection = getConnection();
          final var preparedStatement = connection.prepareStatement(query)) {
         for (int i = 1; i <= parameters.length; i++) {
-            preparedStatement.setString(1, parameters[i - 1]);
+            preparedStatement.setString(i, parameters[i - 1]);
         }
         preparedStatement.executeUpdate();
     } catch (final SQLException e) {
@@ -230,7 +230,7 @@ private <T> T executeQuery(final String query, final RowMapper<T> rowMapper, fin
     try (final var connection = getConnection();
          final var preparedStatement = connection.prepareStatement(query)) {
         for (int i = 1; i <= parameters.length; i++) {
-            preparedStatement.setObject(1, parameters[i - 1]);
+            preparedStatement.setObject(i, parameters[i - 1]);
         }
         final var resultSet = preparedStatement.executeQuery();
         return rowMapper.mapRow(resultSet);
@@ -277,7 +277,7 @@ public class JdbcTemplate {
     public void executeUpdate(final String query, final Object... parameters) {
         try (final var preparedStatement = connection.prepareStatement(query)) {
             for (int i = 1; i <= parameters.length; i++) {
-                preparedStatement.setObject(1, parameters[i - 1]);
+                preparedStatement.setObject(i, parameters[i - 1]);
             }
             preparedStatement.executeUpdate();
         } catch (final SQLException e) {
@@ -288,7 +288,7 @@ public class JdbcTemplate {
     public <T> T executeQuery(final String query, final RowMapper<T> rowMapper, final Object... parameters) {
         try (final var preparedStatement = connection.prepareStatement(query)) {
             for (int i = 1; i <= parameters.length; i++) {
-                preparedStatement.setObject(1, parameters[i - 1]);
+                preparedStatement.setObject(i, parameters[i - 1]);
             }
             final var resultSet = preparedStatement.executeQuery();
             return rowMapper.mapRow(resultSet);
